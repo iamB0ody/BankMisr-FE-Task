@@ -1,3 +1,4 @@
+import { ConvertResponse } from './../../../shared/interfaces/convert.type';
 import {
   Currencies,
   Symbols,
@@ -26,6 +27,10 @@ export class ExchangeService {
           name: response.symbols[k],
         }));
       });
+  }
+
+  public convert(from: string, to: string, amount: number){
+    return this.apiService.get<ConvertResponse>(`convert?to=${to}&from=${from}&amount=${amount}`);
   }
 
   // dateFormate(date: Date){

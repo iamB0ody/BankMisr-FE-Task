@@ -20,6 +20,12 @@
         justify-content: space-between;
         align-items: stretch;
       }
+      .left-side {
+        .convert-rate {
+          height: 37.97px;
+          margin-bottom: 0;
+        }
+      }
       .right-side {
         .from-to {
           display: flex;
@@ -34,6 +40,10 @@
           img {
             height: 50px;
           }
+        }
+        .convert-result {
+          height: 37.97px;
+          margin-bottom: 0;
         }
         button {
           width: 100%;

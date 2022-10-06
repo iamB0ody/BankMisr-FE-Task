@@ -1,52 +1,85 @@
 <div class="container sticky-top">
   <div class="exchange-card">
     <h1>Currency Exchanger</h1>
-    <div class="row content">
-      <div class="col left-side">
-        <div class="mb-3">
-          <label for="amount" class="form-label">Amount</label>
-          <input type="number" class="form-control" id="amount" />
-        </div>
-        <div class="mb-3">
-          <input type="text" class="form-control" id="result" readonly />
-        </div>
-      </div>
-      <div class="col right-side">
-        <div class="from-to">
+    <form [formGroup]="convertForm">
+      <div class="row content">
+        <div class="col left-side">
           <div class="mb-3">
-            <label for="from" class="form-label">From</label>
-            <select class="form-control" id="from">
-              <option value="">Select Currency</option>
-              <option  *ngFor="let currency of exchangeService.currenciesList" [value]="currency.symbol">{{currency.symbol}} - {{currency.name}}</option>
-            </select>
+            <label for="amount" class="form-label">Amount</label>
+            <input
+              type="number"
+              class="form-control"
+              id="amount"
+              formControlName="amount"
+            />
           </div>
-          <img src="./../../../../assets/images/exchange.png" alt="" />
           <div class="mb-3">
-            <label for="to" class="form-label">To</label>
-            <select class="form-control" id="to">
-              <option value="">Select Currency</option>
-              <option  *ngFor="let currency of exchangeService.currenciesList" [value]="currency.symbol">{{currency.symbol}} - {{currency.name}}</option>
-            </select>
+            <p class="form-control convert-rate">
+              <ng-container *ngIf="rate">
+                1.00 {{ convertForm.value.from }} = {{ rate }}
+                {{ convertForm.value.to }}
+              </ng-container>
+            </p>
           </div>
         </div>
-        <div class="row mb-3">
-          <div class="col">
-            <button type="button" class="btn btn-dark">Convert</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
+        <div class="col right-side">
+          <div class="from-to">
             <div class="mb-3">
-              <input type="text" class="form-control" id="result" readonly />
+              <label for="from" class="form-label">From</label>
+              <select class="form-control" id="from" formControlName="from">
+                <option value="">Select Currency</option>
+                <option
+                  *ngFor="let currency of exchangeService.currenciesList"
+                  [value]="currency.symbol"
+                >
+                  {{ currency.symbol }} - {{ currency.name }}
+                </option>
+              </select>
+            </div>
+            <img src="./../../../../assets/images/exchange.png" alt="" />
+            <div class="mb-3">
+              <label for="to" class="form-label">To</label>
+              <select class="form-control" id="to" formControlName="to">
+                <option value="">Select Currency</option>
+                <option
+                  *ngFor="let currency of exchangeService.currenciesList"
+                  [value]="currency.symbol"
+                >
+                  {{ currency.symbol }} - {{ currency.name }}
+                </option>
+              </select>
             </div>
           </div>
-          <div class="col">
-            <div class="mb-3">
-              <button type="button" class="btn btn-dark">More Details</button>
+          <div class="row mb-3">
+            <div class="col">
+              <button
+                type="button"
+                class="btn btn-dark"
+                (click)="convert()"
+                [disabled]="convertForm.invalid"
+              >
+                Convert
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <p class="form-control convert-result">
+                  <ng-container *ngIf="result">
+                    {{result}} {{ convertForm.value.to }}
+                  </ng-container>
+                </p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <button type="button" class="btn btn-dark">More Details</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>
