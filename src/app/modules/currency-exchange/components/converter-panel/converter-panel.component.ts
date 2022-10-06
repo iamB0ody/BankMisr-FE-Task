@@ -1,3 +1,4 @@
+import { ConvertData } from './../../../../shared/interfaces/convert.type';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExchangeService } from '../../services/exchange.service';
@@ -11,7 +12,7 @@ export class ConverterPanelComponent implements OnInit {
   convertForm!: FormGroup;
   rate!: number;
   result!: number;
-  @Output() convertToMostPopular = new EventEmitter();
+  @Output() convertToMostPopular: EventEmitter<ConvertData> = new EventEmitter();
   constructor(public exchangeService: ExchangeService) {}
 
   ngOnInit(): void {
