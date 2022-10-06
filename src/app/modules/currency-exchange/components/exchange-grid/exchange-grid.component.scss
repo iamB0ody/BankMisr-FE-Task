@@ -1,0 +1,21 @@
+.exchange-grid {
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: space-between;
+    align-items: center;
+    div {
+      min-height: 150px;
+      .block-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2pt solid black;
+        border-radius: 4px;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
