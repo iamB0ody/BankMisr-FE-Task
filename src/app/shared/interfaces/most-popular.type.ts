@@ -9,5 +9,5 @@ export interface MostPopularResponse<T> {
 
 
 export interface MostPopularRate {
-  [name: string]: string;
+  [name: string]: number;
 }

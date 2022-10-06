@@ -35,8 +35,4 @@ export class ExchangeGridComponent implements OnInit {
         this.mostPopular = response.rates;
       });
   }
-
-  calculate(amount:number, rate:string){
-    return amount * Number(rate);
-  }
 }

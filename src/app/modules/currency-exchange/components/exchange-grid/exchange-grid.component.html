@@ -5,7 +5,7 @@
         <div class="block-content">
           <h3>{{ rate.key }}</h3>
           <p class="exchange-rate">1.00 {{ baseSymbol }} = {{ rate.value }} {{ rate.key }}</p>
-          <p class="convert-result">{{ calculate(amount, rate.value) | currency:rate.key }}</p>
+          <p class="convert-result">{{ amount * rate.value | currency:rate.key }}</p>
         </div>
       </div>
     </div>
