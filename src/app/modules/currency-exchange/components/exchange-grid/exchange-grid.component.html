@@ -4,8 +4,8 @@
       <div class="col-4" *ngFor="let rate of mostPopular | keyvalue">
         <div class="block-content">
           <h3>{{ rate.key }}</h3>
-          <p>1.00 {{ baseSymbol }} = {{ rate.value }} {{ rate.key }}</p>
-          <p>{{ calculate(amount, rate.value) }}</p>
+          <p class="exchange-rate">1.00 {{ baseSymbol }} = {{ rate.value }} {{ rate.key }}</p>
+          <p class="convert-result">{{ calculate(amount, rate.value) | currency:rate.key }}</p>
         </div>
       </div>
     </div>

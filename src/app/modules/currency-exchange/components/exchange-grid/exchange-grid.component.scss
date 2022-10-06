@@ -16,6 +16,12 @@
         border: 2pt solid black;
         border-radius: 4px;
         margin-bottom: 15px;
+        .exchange-rate {
+          color: gray;
+        }
+        .convert-result {
+          color: darkblue;
+        }
       }
     }
   }
