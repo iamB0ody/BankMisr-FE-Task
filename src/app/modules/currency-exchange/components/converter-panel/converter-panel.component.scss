@@ -1,0 +1,44 @@
+.container {
+  top: 80px;
+  .exchange-card {
+    background-color: white;
+    border: 2pt solid black;
+    margin: 25px auto;
+    border-radius: 4px;
+    padding: 15px;
+    .row.content {
+      & > .col {
+        min-height: 200px;
+      }
+      .left-side,
+      .right-side {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: stretch;
+        justify-content: space-between;
+        align-items: stretch;
+      }
+      .right-side {
+        .from-to {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: nowrap;
+          align-content: center;
+          justify-content: space-between;
+          div {
+            width: 40%;
+          }
+          img {
+            height: 50px;
+          }
+        }
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
