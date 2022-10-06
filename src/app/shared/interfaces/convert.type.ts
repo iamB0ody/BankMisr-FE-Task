@@ -16,3 +16,9 @@ export interface ConvertQuery {
   from: string;
   to: string;
 }
+
+
+export interface ConvertData {
+  symbol: string;
+  amount: number;
+}

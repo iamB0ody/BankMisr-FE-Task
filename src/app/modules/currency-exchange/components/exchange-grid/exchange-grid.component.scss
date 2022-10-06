@@ -10,6 +10,7 @@
       min-height: 150px;
       .block-content {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         border: 2pt solid black;

@@ -7,12 +7,14 @@ import {
 import { ApiService } from './../../../shared/services/api.service';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
+import { MostPopularRate, MostPopularResponse } from 'src/app/shared/interfaces/most-popular.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExchangeService {
   public currenciesList!: Currencies[];
+  public mostPopularCurrencies = 'USD,EUR,JPY,GBP,AUD,CAD,CHF,CNY,HKD';
 
   constructor(private apiService: ApiService) {
     this.getAllAvailableCurrencies();
@@ -29,12 +31,15 @@ export class ExchangeService {
       });
   }
 
-  public convert(from: string, to: string, amount: number){
-    return this.apiService.get<ConvertResponse>(`convert?to=${to}&from=${from}&amount=${amount}`);
+  public convert(from: string, to: string, amount: number) {
+    return this.apiService.get<ConvertResponse>(
+      `convert?to=${to}&from=${from}&amount=${amount}`
+    );
   }
 
-  // dateFormate(date: Date){
-  //   const [withoutT] = date.toISOString().split('T');
-  //   return withoutT;
-  // }
+  public mostCurrencies(date: string, base: string) {
+    return this.apiService.get<MostPopularResponse<MostPopularRate>>(
+      `${date}?symbols=${this.mostPopularCurrencies}&base=${base}`
+    );
+  }
 }
