@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: 'exchange',
     loadChildren: () =>
       import('./modules/currency-exchange/currency-exchange.module').then(
         (m) => m.CurrencyExchangeModule
@@ -11,12 +11,12 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'exchange',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: 'exchange',
   },
 ];
 

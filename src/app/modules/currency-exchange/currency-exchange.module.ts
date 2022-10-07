@@ -5,11 +5,12 @@ import { ExchangeHomeComponent } from './components/exchange-home/exchange-home.
 import { SharedModule } from './../../shared/modules/shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ExchangeDetailsComponent } from './components/exchange-details/exchange-details.component';
 
 
 
 @NgModule({
-  declarations: [ExchangeHomeComponent, ConverterPanelComponent, ExchangeGridComponent],
+  declarations: [ExchangeHomeComponent, ConverterPanelComponent, ExchangeGridComponent, ExchangeDetailsComponent],
   imports: [
     CommonModule,
     CurrencyExchangeRoutingModule,

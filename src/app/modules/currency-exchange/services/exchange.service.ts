@@ -6,7 +6,6 @@ import {
 } from './../../../shared/interfaces/symbols.type';
 import { ApiService } from './../../../shared/services/api.service';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
 import { MostPopularRate, MostPopularResponse } from 'src/app/shared/interfaces/most-popular.type';
 
 @Injectable({

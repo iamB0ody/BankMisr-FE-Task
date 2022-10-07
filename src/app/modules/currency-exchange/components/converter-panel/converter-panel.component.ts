@@ -1,7 +1,9 @@
 import { ConvertData } from './../../../../shared/interfaces/convert.type';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExchangeService } from '../../services/exchange.service';
+import { Router } from '@angular/router';
+import { ConvertDetails } from 'src/app/shared/interfaces/details.type';
 
 @Component({
   selector: 'app-converter-panel',
@@ -12,12 +14,21 @@ export class ConverterPanelComponent implements OnInit {
   convertForm!: FormGroup;
   rate!: number;
   result!: number;
-  @Output() convertToMostPopular: EventEmitter<ConvertData> = new EventEmitter();
-  constructor(public exchangeService: ExchangeService) {}
-
-  ngOnInit(): void {
+  @Output() convertToMostPopular: EventEmitter<ConvertData> =
+    new EventEmitter();
+  convertDetails!: ConvertDetails;
+  @Input() set details(value: ConvertDetails) {
+    if (value) {
+      this.convertDetails = value;
+      this.convertForm.patchValue(this.convertDetails);
+      this.convert();
+    }
+  }
+  constructor(public exchangeService: ExchangeService, private router: Router) {
     this.initForm();
   }
+
+  ngOnInit(): void {}
 
   initForm() {
     this.convertForm = new FormGroup({
@@ -39,14 +50,27 @@ export class ConverterPanelComponent implements OnInit {
           this.rate = response.info.rate;
           this.result = response.result;
         });
-      this.convertToMostPopularCurrencies();
+      if (!this.convertDetails) {
+        this.convertToMostPopularCurrencies();
+      }
     }
   }
 
   convertToMostPopularCurrencies() {
     this.convertToMostPopular.emit({
       symbol: this.convertForm.value.from,
-      amount: this.convertForm.value.amount
+      amount: this.convertForm.value.amount,
+    });
+  }
+
+  navigateToDetail() {
+    this.router.navigate(['/exchange/details'], {
+      queryParams: {
+        ...this.convertForm.value,
+        title: this.exchangeService.currenciesList.find(
+          (s) => s.symbol === this.convertForm.value.from
+        )?.name,
+      },
     });
   }
 }

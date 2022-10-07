@@ -1,6 +1,16 @@
 <div class="container sticky-top">
   <div class="exchange-card">
-    <h1>Currency Exchanger</h1>
+    <div class="row">
+      <div class="col-8">
+        <h1 *ngIf="!convertDetails">Currency Exchanger</h1>
+        <h1 *ngIf="convertDetails?.from">
+          {{ convertDetails.from }} - {{ convertDetails.title }}
+        </h1>
+      </div>
+      <div class="col-4 back-to-home">
+        <button type="button" class="btn btn-dark">Back To Home</button>
+      </div>
+    </div>
     <form [formGroup]="convertForm">
       <div class="row content">
         <div class="col left-side">
@@ -26,7 +36,7 @@
           <div class="from-to">
             <div class="mb-3">
               <label for="from" class="form-label">From</label>
-              <select class="form-control" id="from" formControlName="from">
+              <select class="form-control" id="from" formControlName="from" [attr.disabled]="convertForm">
                 <option value="">Select Currency</option>
                 <option
                   *ngFor="let currency of exchangeService.currenciesList"
@@ -67,14 +77,21 @@
               <div class="mb-3">
                 <p class="form-control convert-result">
                   <ng-container *ngIf="result">
-                    {{result}} {{ convertForm.value.to }}
+                    {{ result }} {{ convertForm.value.to }}
                   </ng-container>
                 </p>
               </div>
             </div>
-            <div class="col">
+            <div class="col" *ngIf="!convertDetails">
               <div class="mb-3">
-                <button type="button" class="btn btn-dark">More Details</button>
+                <button
+                  type="button"
+                  class="btn btn-dark"
+                  [disabled]="convertForm.invalid"
+                  (click)="navigateToDetail()"
+                >
+                  More Details
+                </button>
               </div>
             </div>
           </div>
