@@ -1,4 +1,4 @@
-import { ConvertData } from './../../../../shared/interfaces/convert.type';
+import { ConvertData, ConvertQuery } from './../../../../shared/interfaces/convert.type';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExchangeService } from '../../services/exchange.service';
@@ -14,6 +14,7 @@ export class ConverterPanelComponent implements OnInit {
   convertForm!: FormGroup;
   rate!: number;
   result!: number;
+  convertQuery!: ConvertQuery;
   @Output() converted: EventEmitter<ConvertData> =
     new EventEmitter();
   convertDetails!: ConvertDetails;
@@ -47,6 +48,7 @@ export class ConverterPanelComponent implements OnInit {
           this.convertForm.value.amount
         )
         .subscribe((response) => {
+          this.convertQuery = this.convertForm.value;
           this.rate = response.info.rate;
           this.result = response.result;
         });

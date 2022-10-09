@@ -8,7 +8,7 @@
         </h1>
       </div>
       <div class="col-4 back-to-home" *ngIf="convertDetails">
-        <button type="button" class="btn btn-dark">Back To Home</button>
+        <button type="button" class="btn btn-dark" [routerLink]="['/']">Back To Home</button>
       </div>
     </div>
     <form [formGroup]="convertForm">
@@ -26,8 +26,8 @@
           <div class="mb-3">
             <p class="form-control convert-rate">
               <ng-container *ngIf="rate">
-                1.00 {{ convertForm.value.from }} = {{ rate }}
-                {{ convertForm.value.to }}
+                1.00 {{ convertQuery.from }} = {{ rate }}
+                {{ convertQuery.to }}
               </ng-container>
             </p>
           </div>
@@ -77,7 +77,7 @@
               <div class="mb-3">
                 <p class="form-control convert-result">
                   <ng-container *ngIf="result">
-                    {{ result }} {{ convertForm.value.to }}
+                    {{ result }} {{ convertQuery.to }}
                   </ng-container>
                 </p>
               </div>
