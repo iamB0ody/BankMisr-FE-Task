@@ -18,6 +18,9 @@ export class ChartPanelComponent implements OnInit {
   lineChartLabels: string[] = [];
   lineChartOptions: ChartOptions = {
     responsive: true,
+    color: 'black',
+    backgroundColor: 'gray',
+    borderColor: 'black',
   };
   lineChartColors: any[] = [
     {
@@ -72,6 +75,8 @@ export class ChartPanelComponent implements OnInit {
       {
         data: Object.values(data).map((r) => r[this.detailsData.to]),
         label: this.detailsData.to,
+        pointBorderColor: 'black',
+        pointBackgroundColor: 'black'
       },
     ];
     this.lineChartLabels = Object.keys(data);
