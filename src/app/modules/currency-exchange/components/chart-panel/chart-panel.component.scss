@@ -1,0 +1,13 @@
+.chart-panel {
+  .block-content {
+    background-color: white;
+    border: 2pt solid black;
+    // margin: 25px auto;
+    border-radius: 4px;
+    padding: 15px;
+    canvas {
+      width: 500px !important;
+      height: 500px !important;
+    }
+  }
+}

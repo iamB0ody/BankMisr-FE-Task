@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="chart-panel">
+    <div class="row">
+      <div class="col">
+        <div class="block-content">
+          <canvas
+            baseChart
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [type]="'line'"
+          >
+          <!-- [legend]="lineChartLegend"
+          [plugins]="lineChartPlugins" -->
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
