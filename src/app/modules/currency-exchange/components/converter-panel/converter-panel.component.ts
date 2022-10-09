@@ -14,7 +14,7 @@ export class ConverterPanelComponent implements OnInit {
   convertForm!: FormGroup;
   rate!: number;
   result!: number;
-  @Output() convertToMostPopular: EventEmitter<ConvertData> =
+  @Output() converted: EventEmitter<ConvertData> =
     new EventEmitter();
   convertDetails!: ConvertDetails;
   @Input() set details(value: ConvertDetails) {
@@ -50,15 +50,14 @@ export class ConverterPanelComponent implements OnInit {
           this.rate = response.info.rate;
           this.result = response.result;
         });
-      if (!this.convertDetails) {
-        this.convertToMostPopularCurrencies();
-      }
+        this.sendData();
     }
   }
 
-  convertToMostPopularCurrencies() {
-    this.convertToMostPopular.emit({
+  sendData() {
+    this.converted.emit({
       symbol: this.convertForm.value.from,
+      to: this.convertForm.value.to,
       amount: this.convertForm.value.amount,
     });
   }

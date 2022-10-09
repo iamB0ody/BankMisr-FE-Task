@@ -1,3 +1,6 @@
 <app-header></app-header>
-<app-converter-panel [details]="data"></app-converter-panel>
-<!-- <app-exchange-grid [data]="convertData"></app-exchange-grid> -->
+<app-converter-panel
+  [details]="urlData"
+  (converted)="sendConvertData($event)"
+></app-converter-panel>
+<app-chart-panel [convert]="convertData"></app-chart-panel>

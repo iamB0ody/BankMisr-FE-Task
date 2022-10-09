@@ -1,3 +1,4 @@
+import { ConvertData } from './../../../../shared/interfaces/convert.type';
 import { TimeSeriesRates } from './../../../../shared/interfaces/time-series.type';
 import { GeneralService } from 'src/app/shared/services/general.service';
 import { ConvertDetails } from 'src/app/shared/interfaces/details.type';
@@ -12,26 +13,24 @@ import { ChartDataset, ChartOptions } from 'chart.js';
   styleUrls: ['./chart-panel.component.scss'],
 })
 export class ChartPanelComponent implements OnInit {
-  lineChartData: ChartDataset[] = [
-    { data: [1,2,3,4,5,6], label: 'Crude oil prices' },
-  ];
-  lineChartLabels: string[] = ['2020-01-01', '2020-02-01', '2020-03-01', '2020-04-01', '2020-05-01', '2020-06-01'];
+  detailsData!: ConvertData;
+  lineChartData: ChartDataset[] = [];
+  lineChartLabels: string[] = [];
   lineChartOptions: ChartOptions = {
     responsive: true,
   };
-  // lineChartColors: any[] = [
-  //   {
-  //     borderColor: 'black',
-  //     backgroundColor: 'rgba(255,255,0,0.28)',
-  //   },
-  // ];
-  // lineChartLegend = true;
-  // lineChartPlugins = [];
-  lineChartType = 'line';
+  lineChartColors: any[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,255,0,0.28)',
+    },
+  ];
 
-
-  @Input() set data(value: ConvertDetails) {
-    this.getChartData(value);
+  @Input() set convert(value: ConvertData) {
+    if (value) {
+      this.detailsData = value;
+      this.getChartData(value);
+    }
   }
 
   constructor(
@@ -41,33 +40,40 @@ export class ChartPanelComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  getChartData(data: ConvertDetails) {
+  getChartData(data: ConvertData) {
     const start = this.generalService.dateFormate(
       new Date(new Date().setFullYear(new Date().getFullYear() - 1))
     );
     const end = this.generalService.dateFormate(new Date());
     this.exchangeService
-      .timeSeries(data.from, data.to, start, end)
+      .timeSeries(data.symbol, data.to, start, end)
       .subscribe((response) => {
         this.convertSeriesPerDayToPerMonth(response.rates);
       });
   }
 
   convertSeriesPerDayToPerMonth(rates: TimeSeriesRates) {
-    console.log(rates);
-    // Group dates by month
-    const newShape: { [key: string]: {} } = {};
+    // Monthly rate is calculated based on rate in last day of that month
+    // Get rate value of last day of every month
+    const newData: { [key: string]: {} } = {};
     for (const key in rates) {
       if (Object.prototype.hasOwnProperty.call(rates, key)) {
         const element = rates[key];
         const month = `${key.split('-')[0]}-${key.split('-')[1]}`;
-        newShape[month] = element;
+        newData[month] = element;
       }
     }
-    console.log(newShape);
-
-    // Get rate by (rate in last day of that month)
-
     // convert to chart shape
+    this.chartGenerate(newData);
+  }
+
+  chartGenerate(data: TimeSeriesRates) {
+    this.lineChartData = [
+      {
+        data: Object.values(data).map((r) => r[this.detailsData.to]),
+        label: this.detailsData.to,
+      },
+    ];
+    this.lineChartLabels = Object.keys(data);
   }
 }

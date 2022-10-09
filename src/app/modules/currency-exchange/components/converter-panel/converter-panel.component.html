@@ -1,4 +1,4 @@
-<div class="container sticky-top">
+<div class="container">
   <div class="exchange-card">
     <div class="row">
       <div class="col-8">
@@ -7,7 +7,7 @@
           {{ convertDetails.from }} - {{ convertDetails.title }}
         </h1>
       </div>
-      <div class="col-4 back-to-home">
+      <div class="col-4 back-to-home" *ngIf="convertDetails">
         <button type="button" class="btn btn-dark">Back To Home</button>
       </div>
     </div>
@@ -36,7 +36,7 @@
           <div class="from-to">
             <div class="mb-3">
               <label for="from" class="form-label">From</label>
-              <select class="form-control" id="from" formControlName="from" [attr.disabled]="convertForm">
+              <select class="form-control" id="from" formControlName="from" [attr.disabled]="convertDetails">
                 <option value="">Select Currency</option>
                 <option
                   *ngFor="let currency of exchangeService.currenciesList"

@@ -1,3 +1,4 @@
+import { ConvertData } from './../../../../shared/interfaces/convert.type';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConvertDetails } from 'src/app/shared/interfaces/details.type';
@@ -8,14 +9,20 @@ import { ConvertDetails } from 'src/app/shared/interfaces/details.type';
   styleUrls: ['./exchange-details.component.scss'],
 })
 export class ExchangeDetailsComponent implements OnInit {
-  data!: ConvertDetails;
+  urlData!: ConvertDetails;
+  convertData!: ConvertData;
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params: any) => {
-      if(params){
-        this.data = params;
+      if (params) {
+        this.urlData = params;
       }
     });
+  }
+
+
+  sendConvertData(data: ConvertData){
+    this.convertData = data;
   }
 }
